@@ -1,3 +1,1 @@
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="bg-blue-600 text-white px-4 py-2 rounded">{children}</button>;
-}
+export const Button = ({ children }: { children: React.ReactNode }) => <button className='bg-blue-500 text-white py-2 px-4 rounded'>{children}</button>;

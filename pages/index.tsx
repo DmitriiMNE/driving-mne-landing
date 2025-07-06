@@ -1,74 +1,70 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Globe } from "lucide-react";
+import Head from "next/head";
 import Image from "next/image";
 
 const translations = {
   en: {
     title: "Montenegro Driving Test",
-    description:
-      "Prepare for the driving license exam in Montenegro! 500+ real questions, test mode, mistake tracking and performance stats. Available in 5 languages. Works on any device.",
-    button: "Try the App",
+    description: "Test yourself with 500+ questions in 5 languages. Track progress and learn from your mistakes. Optimized for mobile, tablet, and desktop.",
+    button: "Start Now",
   },
   ru: {
-    title: "Тест на вождение в Черногории",
-    description:
-      "Подготовьтесь к экзамену на водительские права в Черногории! Более 500 вопросов, тесты, статистика, возможность повторять ошибки. Приложение на 5 языках, работает на любом устройстве.",
-    button: "Попробовать приложение",
+    title: "Тест ПДД Черногория",
+    description: "500+ вопросов на 5 языках. Отслеживание ошибок и прогресс. Удобно с телефона, планшета или ноутбука.",
+    button: "Начать",
   },
   sr: {
-    title: "Vozački ispit Crna Gora",
-    description:
-      "Pripremite se za vozački ispit u Crnoj Gori! Više od 500 pitanja, testovi, statistika i praćenje grešaka. Aplikacija je dostupna na 5 jezika i radi na svim uređajima.",
-    button: "Probaj aplikaciju",
+    title: "Test iz saobraćajnih pravila",
+    description: "Više od 500 pitanja na 5 jezika. Pratite napredak i učite iz grešaka. Radi na svim uređajima.",
+    button: "Počni sada",
   },
   de: {
-    title: "Führerscheinprüfung Montenegro",
-    description:
-      "Bereite dich auf die Führerscheinprüfung in Montenegro vor! Über 500 echte Fragen, Testmodus, Fehleranalyse und Statistiken. In 5 Sprachen verfügbar. Funktioniert auf jedem Gerät.",
-    button: "App ausprobieren",
+    title: "Führerscheintest Montenegro",
+    description: "500+ Fragen auf 5 Sprachen. Lerne aus Fehlern. Funktioniert auf allen Geräten.",
+    button: "Jetzt starten",
   },
   tr: {
-    title: "Karadağ Sürüş Testi",
-    description:
-      "Karadağ’da ehliyet sınavına hazırlanın! 500’den fazla gerçek soru, test modu, hata analizi ve istatistikler. 5 dilde mevcut. Tüm cihazlarda çalışır.",
-    button: "Uygulamayı dene",
+    title: "Karadağ Ehliyet Sınavı",
+    description: "500+ soru, 5 dilde. Hatalarınızı takip edin. Tüm cihazlarda çalışır.",
+    button: "Hemen Başla",
   },
 };
 
-export default function LandingPage() {
-  const [lang, setLang] = useState("en");
-  const t = translations[lang];
+type Language = keyof typeof translations;
+
+export default function Home() {
+  const [language, setLanguage] = useState<Language>("en");
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 p-6 flex flex-col items-center justify-center">
-      <div className="flex justify-end w-full max-w-3xl">
-        <select
-          className="border rounded p-2 text-sm"
-          value={lang}
-          onChange={(e) => setLang(e.target.value)}
-        >
-          <option value="en">EN</option>
-          <option value="ru">RU</option>
-          <option value="sr">SR</option>
-          <option value="de">DE</option>
-          <option value="tr">TR</option>
-        </select>
-      </div>
-      <Card className="max-w-3xl w-full p-6 mt-4 shadow-xl text-center">
-        <Image
-          src="/logo.png"
-          alt="Montenegro Driving Test"
-          width={100}
-          height={100}
-          className="mx-auto mb-4"
-        />
-        <h1 className="text-3xl font-bold mb-4">{t.title}</h1>
-        <p className="text-gray-700 mb-6">{t.description}</p>
-        <Button>{t.button}</Button>
-      </Card>
-    </main>
+    <>
+      <Head>
+        <title>Driving Test Montenegro</title>
+      </Head>
+      <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50">
+        <Image src="/logo.png" alt="Logo" width={96} height={96} />
+        <h1 className="text-3xl font-bold mt-4">{translations[language].title}</h1>
+        <p className="text-center text-gray-600 max-w-lg mt-2">{translations[language].description}</p>
+
+        <div className="flex gap-2 mt-4">
+          {Object.keys(translations).map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setLanguage(lang as Language)}
+              className={`px-3 py-1 rounded-md border ${
+                language === lang ? "bg-blue-600 text-white" : "bg-white"
+              }`}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
+        <Card className="mt-6 p-4 w-full max-w-sm text-center">
+          <Button>{translations[language].button}</Button>
+        </Card>
+      </main>
+    </>
   );
 }
