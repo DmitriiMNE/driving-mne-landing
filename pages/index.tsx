@@ -55,15 +55,25 @@ export default function Home() {
     <>
       <Head>
         <title>Driving Test Montenegro</title>
-        
         <meta name="description" content="Test yourself with 500+ questions in 6 languages. Track progress and learn from your mistakes. Optimized for mobile, tablet, and desktop." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        
+        <link rel="icon" href="/favicon.png" type="image/png"/>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6RP4WBCSZ"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Q6RP4WBCSZ');
+            `,
+          }}
+        />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50">
         <Image
-          src="/logo.png"
+          src="/favicon.png"
           alt="Logo"
           width={96}
           height={96}
